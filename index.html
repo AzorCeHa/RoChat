@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Chat Sederhana</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <div id="chatbox"></div>
+    <input type="text" id="message" placeholder="Tulis pesan...">
+    <button onclick="sendChat()">Kirim</button>
+  </div>
+  <script>
+    // Ambil username dari LocalStorage (disimpan saat login)
+    const username = localStorage.getItem("username");
+
+    function loadChat() {
+      fetch('/api/chat')
+        .then(res => res.json())
+        .then(data => {
+          const chatbox = document.getElementById('chatbox');
+          chatbox.innerHTML = '';
+          data.forEach(c => {
+            chatbox.innerHTML += `<p><b>${c.name}:</b> ${c.text}</p>`;
+          });
+        });
+    }
+
+    function sendChat() {
+      const text = document.getElementById('message').value;
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name: username, text })
+      }).then(() => {
+        document.getElementById('message').value = '';
+        loadChat();
+      });
+    }
+
+    // refresh chat tiap 2 detik
+    setInterval(loadChat, 2000);
+    loadChat();
+  </script>
+</body>
+</html>
