@@ -12,6 +12,11 @@
     <button onclick="sendChat()">Kirim</button>
   </div>
   <script>
+  // Cek apakah username sudah ada di LocalStorage
+  if (!localStorage.getItem("username")) {
+    // Jika belum login, redirect ke login page
+    window.location.href = "login.html";
+  }
     // Ambil username dari LocalStorage (disimpan saat login)
     const username = localStorage.getItem("username");
 
