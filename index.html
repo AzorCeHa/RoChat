@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <title>Web Chat Sederhana</title>
   <link rel="stylesheet" href="style/style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/supabase.min.js"></script>
+  <script>
+    // Cek apakah sudah login
+    if (!localStorage.getItem("username")) {
+      window.location.href = "login.html";
+    }
+  </script>
 </head>
 <body>
   <div class="chat-container">
@@ -12,45 +17,35 @@
     <input type="text" id="message" placeholder="Tulis pesan...">
     <button onclick="sendChat()">Kirim</button>
   </div>
- <script>
-    // Cek login
-    if (!localStorage.getItem("username")) {
-      window.location.href = "login.html";
-    }
-
-    // Koneksi ke Supabase
-    const supabaseUrl = 'https://isjxkovmyafkjuefsvmd.supabase.co'; // ganti dengan URL kamu
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzanhrb3ZteWFma2p1ZWZzdm1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMDk4MjIsImV4cCI6MjA3Mzc4NTgyMn0.8eOx4qsZk480HRZvFuQg6D5KQKaJginxxytN413lRNo';     // ganti dengan key kamu
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
+  <script>
     const username = localStorage.getItem("username");
 
-    async function loadChat() {
-      const { data, error } = await supabase
-        .from('chats')
-        .select('*')
-        .order('created_at', { ascending: true });
-      const chatbox = document.getElementById('chatbox');
-      chatbox.innerHTML = '';
-      if(data) {
-        data.forEach(c => {
-          chatbox.innerHTML += `<p><b>${c.name}:</b> ${c.text}</p>`;
+    function loadChat() {
+      fetch('/api/chat')
+        .then(res => res.json())
+        .then(data => {
+          const chatbox = document.getElementById('chatbox');
+          chatbox.innerHTML = '';
+          data.forEach(c => {
+            chatbox.innerHTML += `<p><b>${c.name}:</b> ${c.text}</p>`;
+          });
         });
-      }
     }
 
-    async function sendChat() {
+    function sendChat() {
       const text = document.getElementById('message').value;
-      if (!text.trim()) return;
-      await supabase
-        .from('chats')
-        .insert([{ name: username, text: text }]);
-      document.getElementById('message').value = '';
-      loadChat();
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name: username, text })
+      }).then(() => {
+        document.getElementById('message').value = '';
+        loadChat();
+      });
     }
 
     setInterval(loadChat, 2000);
     loadChat();
-</script>
+  </script>
 </body>
 </html>
