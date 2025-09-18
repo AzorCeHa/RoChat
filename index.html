@@ -11,42 +11,45 @@
     <input type="text" id="message" placeholder="Tulis pesan...">
     <button onclick="sendChat()">Kirim</button>
   </div>
-  <script>
-  // Cek apakah username sudah ada di LocalStorage
-  if (!localStorage.getItem("username")) {
-    // Jika belum login, redirect ke login page
-    window.location.href = "login.html";
-  }
-    // Ambil username dari LocalStorage (disimpan saat login)
+ <script>
+    // Cek login
+    if (!localStorage.getItem("username")) {
+      window.location.href = "login.html";
+    }
+
+    // Koneksi ke Supabase
+    const supabaseUrl = 'https://xxxx.supabase.co'; // ganti dengan URL kamu
+    const supabaseKey = 'anon_public_key_kamu';     // ganti dengan key kamu
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
     const username = localStorage.getItem("username");
 
-    function loadChat() {
-      fetch('/api/chat')
-        .then(res => res.json())
-        .then(data => {
-          const chatbox = document.getElementById('chatbox');
-          chatbox.innerHTML = '';
-          data.forEach(c => {
-            chatbox.innerHTML += `<p><b>${c.name}:</b> ${c.text}</p>`;
-          });
+    async function loadChat() {
+      const { data, error } = await supabase
+        .from('chats')
+        .select('*')
+        .order('created_at', { ascending: true });
+      const chatbox = document.getElementById('chatbox');
+      chatbox.innerHTML = '';
+      if(data) {
+        data.forEach(c => {
+          chatbox.innerHTML += `<p><b>${c.name}:</b> ${c.text}</p>`;
         });
+      }
     }
 
-    function sendChat() {
+    async function sendChat() {
       const text = document.getElementById('message').value;
-      fetch('/api/chat', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ name: username, text })
-      }).then(() => {
-        document.getElementById('message').value = '';
-        loadChat();
-      });
+      if (!text.trim()) return;
+      await supabase
+        .from('chats')
+        .insert([{ name: username, text: text }]);
+      document.getElementById('message').value = '';
+      loadChat();
     }
 
-    // refresh chat tiap 2 detik
     setInterval(loadChat, 2000);
     loadChat();
-  </script>
+</script>
 </body>
 </html>
