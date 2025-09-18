@@ -1,21 +1,3 @@
-async function sendChat() {
-  const text = document.getElementById('message').value;
-  if (!text.trim()) return;
-
-  // Insert chat ke Supabase
-  const { error } = await supabase
-    .from('chats')
-    .insert([{ name: username, text: text }]);
-  
-  if (error) {
-    alert("Gagal kirim chat: " + error.message);
-    return;
-  } else {
-    // Optional: alert("Chat berhasil dikirim!");
-    document.getElementById('message').value = '';
-    loadChat();
-  }
-}
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://isjxkovmyafkjuefsvmd.supabase.co'
