@@ -1,26 +1,16 @@
-import { createClient } from '@supabase/supabase-js'
+// Simpan chat secara sederhana di memori (reset tiap deploy)
+let chats = [];
 
-const supabaseUrl = 'https://isjxkovmyafkjuefsvmd.supabase.co'
-const supabaseKey = process.env.SUPABASE_KEY // Atur di dashboard Vercel/Netlify
-const supabase = createClient(supabaseUrl, supabaseKey)
-
-// Untuk GET chat
-export default async function handler(req, res) {
+export default function handler(req, res) {
   if (req.method === 'GET') {
-    const { data, error } = await supabase
-      .from('chats')
-      .select('*')
-      .order('created_at', { ascending: true });
-    if (error) return res.status(500).json({ error: error.message })
-    res.status(200).json(data);
-  }
-  // Untuk POST chat
-  if (req.method === 'POST') {
+    res.status(200).json(chats);
+  } else if (req.method === 'POST') {
     const { name, text } = req.body;
-    const { error } = await supabase
-      .from('chats')
-      .insert([{ name, text }]);
-    if (error) return res.status(500).json({ error: error.message })
-    res.status(200).json({ message: 'Chat saved!' });
+    if (name && text) {
+      chats.push({ name, text });
+      res.status(200).json({ success: true });
+    } else {
+      res.status(400).json({ error: 'Missing name or text' });
+    }
   }
 }
