@@ -2,85 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>RoChat</title>
+  <title>Web Chat Sederhana</title>
   <link rel="stylesheet" href="style/style.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f6f6f6;
-    }
-    .container {
-      max-width: 400px;
-      margin: 30px auto;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px #0002;
-      padding: 20px;
-    }
-    .top-bar {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 14px;
-    }
-    .top-bar .username {
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-    .top-bar .logout-btn {
-      align-self: flex-end;
-      background: #e74c3c;
-      color: #fff;
-      border: none;
-      padding: 6px 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    #chatbox {
-      min-height: 150px;
-      max-height: 250px;
-      overflow-y: auto;
-      border: 1px solid #eee;
-      margin-bottom: 14px;
-      padding: 8px;
-      background: #f9f9f9;
-      border-radius: 5px;
-    }
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    #message {
-      font-size: 15px;
-      padding: 6px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    .send-btn {
-      background: #3498db;
-      color: #fff;
-      border: none;
-      padding: 8px 0;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 15px;
-    }
-    .bottom-bar {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    .bottom-bar a {
-      color: #888;
-      text-decoration: none;
-    }
-    .bottom-bar a:hover {
-      text-decoration: underline;
-    }
-  </style>
   <script>
     // Cek apakah sudah login
     if (!localStorage.getItem("username")) {
@@ -89,23 +12,13 @@
   </script>
 </head>
 <body>
-  <div class="container">
-    <div class="top-bar">
-      <span class="username" id="username-display"></span>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
+  <div class="chat-container">
     <div id="chatbox"></div>
-    <div class="input-group">
-      <input type="text" id="message" placeholder="Tulis pesan...">
-      <button class="send-btn" onclick="sendChat()">Kirim</button>
-    </div>
-    <div class="bottom-bar">
-      <a href="atribusi.html">Atribusi</a>
-    </div>
+    <input type="text" id="message" placeholder="Tulis pesan...">
+    <button onclick="sendChat()">Kirim</button>
   </div>
   <script>
     const username = localStorage.getItem("username");
-    document.getElementById("username-display").textContent = "👤 " + username;
 
     function loadChat() {
       fetch('/api/chat')
@@ -121,7 +34,6 @@
 
     function sendChat() {
       const text = document.getElementById('message').value;
-      if (!text.trim()) return;
       fetch('/api/chat', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -130,11 +42,6 @@
         document.getElementById('message').value = '';
         loadChat();
       });
-    }
-
-    function logout() {
-      localStorage.removeItem("username");
-      window.location.href = "login.html";
     }
 
     setInterval(loadChat, 2000);
