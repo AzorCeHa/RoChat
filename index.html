@@ -12,13 +12,21 @@
   </script>
 </head>
 <body>
+  <div class="top-bar" style="margin-bottom:10px;">
+    <span id="username-display"></span>
+    <button onclick="logout()" style="float:right;">Logout</button>
+  </div>
   <div class="chat-container">
     <div id="chatbox"></div>
     <input type="text" id="message" placeholder="Tulis pesan...">
     <button onclick="sendChat()">Kirim</button>
   </div>
+  <div class="bottom-bar" style="margin-top:20px;">
+    <a href="atribusi.html">Atribusi</a>
+  </div>
   <script>
     const username = localStorage.getItem("username");
+    document.getElementById("username-display").textContent = "👤 " + username;
 
     function loadChat() {
       fetch('/api/chat')
@@ -34,6 +42,7 @@
 
     function sendChat() {
       const text = document.getElementById('message').value;
+      if (!text.trim()) return;
       fetch('/api/chat', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -42,6 +51,11 @@
         document.getElementById('message').value = '';
         loadChat();
       });
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      window.location.href = "login.html";
     }
 
     setInterval(loadChat, 2000);
