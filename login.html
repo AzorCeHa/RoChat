@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Selamat Datang Kembali🎉</h2>
+        <h4 style="color: white;margin-top: -15px;">kami menunggu kamu>w<</h4>
+        <div class="input-box">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Tulis Username">
+        </div>
+        <div class="input-box">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Tulis Password">
+        </div>
+        <button class="btn" onclick="login()">Login</button>
+        <p class="msg" id="msg"></p>
+    </div>
+    <script>
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let msg = document.getElementById("msg");
+
+            if (username === "arsya" && password === "ganteng") {
+  msg.style.color = "lightgreen";
+  msg.innerText = "✅ Login Berhasil!";
+  localStorage.setItem("username", username); // <--- TARUH DI SINI
+  window.location.href = "index.html"; // <--- ke halaman chat
+ } else if (username === "admin" && password === "1234") {
+  msg.style.color = "lightgreen";
+  msg.innerText = "✅ Login Berhasil!";
+  localStorage.setItem("username", username);
+  window.location.href = "index.html";
+} else {
+  msg.style.color = "red";
+  msg.innerText = "❌ Username atau Password tidak valid!";
+}
+        }
+    </script>
+</body>
+</html>
