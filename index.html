@@ -10,18 +10,54 @@
       window.location.href = "login.html";
     }
   </script>
+  <style>
+    /* Tambahan CSS untuk tata letak */
+    .top-bar {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-container {
+      max-width: 400px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+    #chatbox {
+      min-height: 150px;
+      max-height: 250px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      border: 1px solid #eee;
+      padding: 8px;
+      background: #fff;
+    }
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
+    .bottom-bar {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <div class="top-bar" style="margin-bottom:10px;">
+  <div class="top-bar">
     <span id="username-display"></span>
-    <button onclick="logout()" style="float:right;">Logout</button>
+    <button onclick="logout()">Logout</button>
   </div>
   <div class="chat-container">
     <div id="chatbox"></div>
-    <input type="text" id="message" placeholder="Tulis pesan...">
-    <button onclick="sendChat()">Kirim</button>
+    <div class="input-group">
+      <input type="text" id="message" placeholder="Tulis pesan..." style="flex:1;">
+      <button onclick="sendChat()">Kirim</button>
+    </div>
   </div>
-  <div class="bottom-bar" style="margin-top:20px;">
+  <div class="bottom-bar">
     <a href="atribusi.html">Atribusi</a>
   </div>
   <script>
