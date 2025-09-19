@@ -1,170 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login Chat</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', Arial, sans-serif;
-      background: linear-gradient(120deg, #232526 0%, #414345 100%);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .form-container {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
-      padding: 40px 32px;
-      width: 340px;
-      min-width: 240px;
-      text-align: center;
-      animation: fadeIn 1s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    .form-container h2 {
-      color: #ffd700;
-      margin-bottom: 20px;
-      font-size: 2rem;
-      letter-spacing: 1px;
-    }
-    .input-box {
-      margin-bottom: 18px;
-      text-align: left;
-    }
-    .input-box label {
-      color: #fff;
-      font-weight: 600;
-      display: block;
-      margin-bottom: 7px;
-      font-size: 1rem;
-    }
-    .input-box input {
-      width: 100%;
-      padding: 13px;
-      border: none;
-      border-radius: 8px;
-      background: #fff;
-      color: #222;
-      font-size: 16px;
-      outline: none;
-      transition: box-shadow 0.2s;
-    }
-    .input-box input:focus {
-      box-shadow: 0 0 9px #ffd700;
-    }
-    .btn {
-      width: 100%;
-      padding: 13px;
-      border: none;
-      border-radius: 8px;
-      background: #ffd700;
-      color: #222;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 6px;
-      transition: 0.2s;
-    }
-    .btn:hover {
-      background: #fffbe2;
-      color: #232526;
-      transform: scale(1.04);
-    }
-    .msg {
-      margin-top: 16px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      min-height: 20px;
-      text-align: center;
-    }
-    .form-link {
-      margin-top: 18px;
-      display: block;
-      color: #ffd700;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: bold;
-      transition: color 0.2s;
-    }
-    .form-link:hover {
-      color: #fffbe0;
-      text-decoration: underline;
-    }
-    @media (max-width: 600px) {
-      .form-container {
-        width: 90vw;
-        padding: 9vw 3vw;
-        border-radius: 10px;
-      }
-      .form-container h2 {
-        font-size: 1.3rem;
-      }
-      .input-box input {
-        font-size: 15px;
-        padding: 10px;
-        border-radius: 6px;
-      }
-      .btn {
-        font-size: 15px;
-        padding: 10px;
-        border-radius: 6px;
-      }
-      .msg {
-        font-size: 13px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Login</title>
+<link rel="stylesheet" href="style/login.css">
 </head>
+
 <body>
-  <div class="form-container">
-    <h2>Login Chat</h2>
-    <form id="loginForm">
-      <div class="input-box">
-        <label for="username">Username</label>
-        <input type="text" id="username" required>
-      </div>
-      <div class="input-box">
-        <label for="password">Password</label>
-        <input type="password" id="password" required>
-      </div>
-      <button class="btn" type="submit">Login</button>
-    </form>
-    <div class="msg" id="msg"></div>
-    <a href="register.html" class="form-link">Belum punya akun? Daftar!</a>
-  </div>
-  <script>
-    document.getElementById('loginForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const msg = document.getElementById('msg');
-      msg.textContent = '';
-      const res = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ username, password })
-      });
-      if (res.ok) {
-        msg.textContent = 'Login berhasil!';
-        msg.style.color = 'lime';
-        localStorage.setItem('username', username);
-        setTimeout(() => location.href='index.html', 700);
-      } else {
-        const data = await res.json();
-        msg.textContent = data.message;
-        msg.style.color = 'red';
-      }
-    }
-  </script>
+    <div class="login-container">
+        <h2>Selamat Datang Kembali🎉</h2>
+        <h4 style="color: white;margin-top: -15px;">kami menunggu kamu>w<</h4>
+        <div class="input-box">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Tulis Username">
+        </div>
+        <div class="input-box">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Tulis Password">
+        </div>
+        <button class="btn" onclick="login()">Login</button>
+        <p class="msg" id="msg"></p>
+    </div>
+    <script>
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let msg = document.getElementById("msg");
+
+            if (username === "arsya" && password === "ganteng") {
+  msg.style.color = "lightgreen";
+  msg.innerText = "✅ Login Berhasil!";
+  localStorage.setItem("username", username); // <--- TARUH DI SINI
+  window.location.href = "index.html"; // <--- ke halaman chat
+}
+ } else if (username === "admin" && password === "1234") {
+  msg.style.color = "lightgreen";
+  msg.innerText = "✅ Login Berhasil!";
+  window.location.href = "tictactoe2p.html";
+} else {
+  msg.style.color = "red";
+  msg.innerText = "❌ Username atau Password tidak valid!";
+}
+        }
+    </script>
 </body>
 </html>
