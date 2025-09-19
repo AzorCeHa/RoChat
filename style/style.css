@@ -1,43 +1,36 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: black;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(120deg, #232526 0%, #414345 100%);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Container untuk login & register */
 .form-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 40px 36px;
-    width: 350px;
-    min-width: 270px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    padding: 40px 32px;
+    width: 340px;
+    min-width: 240px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 1.0s ease;
+    animation: fadeIn 1s;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-30px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 
 .form-container h2 {
-    color: white;
-    margin-bottom: 22px;
+    color: #ffd700;
+    margin-bottom: 20px;
     font-size: 2rem;
-    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .input-box {
@@ -46,10 +39,10 @@ body {
 }
 
 .input-box label {
-    color: white;
-    font-weight: bold;
+    color: #fff;
+    font-weight: 600;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 7px;
     font-size: 1rem;
 }
 
@@ -57,45 +50,44 @@ body {
     width: 100%;
     padding: 13px;
     border: none;
-    border-radius: 10px;
-    background: white;
-    color: black;
-    font-size: 17px;
+    border-radius: 8px;
+    background: #fff;
+    color: #222;
+    font-size: 16px;
     outline: none;
-    transition: 0.3s;
+    transition: box-shadow 0.2s;
 }
 
 .input-box input:focus {
-    background: white;
-    box-shadow: 0 0 10px #ffd700;
+    box-shadow: 0 0 9px #ffd700;
 }
 
 .btn {
     width: 100%;
     padding: 13px;
     border: none;
-    border-radius: 10px;
-    background: white;
-    color: black;
-    font-size: 19px;
+    border-radius: 8px;
+    background: #ffd700;
+    color: #222;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
-    margin-top: 8px;
+    margin-top: 6px;
+    transition: 0.2s;
 }
 
 .btn:hover {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.18);
-    color: #ffd700;
+    background: #fffbe2;
+    color: #232526;
+    transform: scale(1.04);
 }
 
 .msg {
-    margin-top: 18px;
+    margin-top: 16px;
     font-size: 15px;
-    color: white;
-    font-weight: bold;
-    min-height: 22px;
+    font-weight: 600;
+    color: #fff;
+    min-height: 20px;
     text-align: center;
 }
 
@@ -113,31 +105,26 @@ body {
     text-decoration: underline;
 }
 
-/* Responsive untuk mobile */
 @media (max-width: 600px) {
     .form-container {
-        width: 92vw;
-        min-width: unset;
-        padding: 10vw 2vw;
-        border-radius: 14px;
+        width: 90vw;
+        padding: 9vw 3vw;
+        border-radius: 10px;
     }
     .form-container h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
     .input-box input {
         font-size: 15px;
         padding: 10px;
-        border-radius: 8px;
+        border-radius: 6px;
     }
     .btn {
-        font-size: 16px;
+        font-size: 15px;
         padding: 10px;
-        border-radius: 8px;
+        border-radius: 6px;
     }
     .msg {
         font-size: 13px;
-    }
-    .form-link {
-        font-size: 15px;
     }
 }
