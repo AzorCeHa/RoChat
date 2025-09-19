@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Daftar Akun Chat</title>
-  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="register-container">
+  <div class="form-container">
     <h2>Daftar Akun</h2>
     <form id="registerForm">
       <div class="input-box">
@@ -20,6 +20,7 @@
       <button class="btn" type="submit">Daftar</button>
     </form>
     <div class="msg" id="msg"></div>
+    <a href="login.html" class="form-link">Sudah punya akun? Login!</a>
   </div>
   <script>
     document.getElementById('registerForm').onsubmit = async function(e) {
