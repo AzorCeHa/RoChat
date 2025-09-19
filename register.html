@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Akun Chat</title>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+  <div class="register-container">
+    <h2>Daftar Akun</h2>
+    <form id="registerForm">
+      <div class="input-box">
+        <label for="username">Username</label>
+        <input type="text" id="username" required>
+      </div>
+      <div class="input-box">
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+      </div>
+      <button class="btn" type="submit">Daftar</button>
+    </form>
+    <div class="msg" id="msg"></div>
+  </div>
+  <script>
+    document.getElementById('registerForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('msg');
+      msg.textContent = '';
+      const res = await fetch('http://localhost:3000/api/register', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ username, password })
+      });
+      if (res.ok) {
+        msg.textContent = 'Berhasil daftar! Silakan login.';
+        msg.style.color = 'lime';
+      } else {
+        const data = await res.json();
+        msg.textContent = data.message;
+        msg.style.color = 'red';
+      }
+    }
+  </script>
+</body>
+</html>
