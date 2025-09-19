@@ -1,205 +1,143 @@
 body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: black;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 40px;
-            width: 350px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1.0s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-container h2 {
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .input-box {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .input-box label {
-            color: white;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .input-box input {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            background: white;
-            color: black;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .input-box input:focus {
-            background: white;
-            box-shadow: 0 0 10px white;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            background: white;
-            color: black;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .msg {
-            margin-top: 15px;
-            font-size: 14px;
-            color: white;
-            font-weight: bold;
-        }
-
-/* Untuk chat container */
-.chat-container {
-    background: rgba(255, 255, 255, 0.13);
-    backdrop-filter: blur(16px);
-    border-radius: 24px;
-    padding: 48px 32px;
-    width: 600px;
-    max-width: 2000px;
-    text-align: center;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.33);
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+}
+
+/* Container untuk login & register */
+.form-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px 36px;
+    width: 350px;
+    min-width: 270px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     animation: fadeIn 1.0s ease;
 }
 
-/* Box chat */
-#chatbox {
-    background: rgba(255,255,255,0.18);
-    border-radius: 16px;
-    height: 420px;
-    width: 100%;
-    margin-bottom: 26px;
-    overflow-y: auto;
-    padding: 24px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.21);
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-container h2 {
     color: white;
-    font-size: 20px;
-}
-
-/* Chat message */
-#chatbox p {
-    margin: 14px 0;
-    font-size: 20px;
-    text-align: left;
-    word-break: break-word;
-}
-
-#chatbox b {
-    color: #ffd700;
+    margin-bottom: 22px;
+    font-size: 2rem;
     font-weight: 700;
-    margin-right: 6px;
-    font-size: 21px;
 }
 
-/* Input dan tombol kirim */
-#message {
-    width: 75%;
-    padding: 16px;
+.input-box {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.input-box label {
+    color: white;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 13px;
     border: none;
-    border-radius: 14px;
-    margin-right: 12px;
-    outline: none;
-    font-size: 19px;
+    border-radius: 10px;
     background: white;
     color: black;
+    font-size: 17px;
+    outline: none;
     transition: 0.3s;
 }
 
-#message:focus {
-    box-shadow: 0 0 12px white;
+.input-box input:focus {
+    background: white;
+    box-shadow: 0 0 10px #ffd700;
 }
 
-button {
-    padding: 16px 22px;
+.btn {
+    width: 100%;
+    padding: 13px;
     border: none;
-    border-radius: 14px;
+    border-radius: 10px;
     background: white;
     color: black;
     font-size: 19px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    margin-top: 8px;
 }
 
-button:hover {
-    background: rgba(255,255,255,0.2);
-    transform: scale(1.08);
+.btn:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffd700;
 }
 
-/* Responsive untuk Mobile */
+.msg {
+    margin-top: 18px;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    min-height: 22px;
+    text-align: center;
+}
+
+.form-link {
+    margin-top: 18px;
+    display: block;
+    color: #ffd700;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+.form-link:hover {
+    color: #fffbe0;
+    text-decoration: underline;
+}
+
+/* Responsive untuk mobile */
 @media (max-width: 600px) {
-    .chat-container {
-        max-width: unlimited;
-        padding: 5vw 0vw;
-        border-radius: 16px;
+    .form-container {
+        width: 92vw;
+        min-width: unset;
+        padding: 10vw 2vw;
+        border-radius: 14px;
     }
-    #chatbox {
-        height: 56vw;
-        font-size: 17px;
-        padding: 12px;
-        border-radius: 10px;
+    .form-container h2 {
+        font-size: 1.4rem;
     }
-    #chatbox p {
-        font-size: 17px;
-        margin: 10px 0;
+    .input-box input {
+        font-size: 15px;
+        padding: 10px;
+        border-radius: 8px;
     }
-    #chatbox b {
-        font-size: 17px;
-    }
-    #message {
-        width: 60vw;
+    .btn {
         font-size: 16px;
         padding: 10px;
-        border-radius: 9px;
+        border-radius: 8px;
     }
-    button {
-        font-size: 16px;
-        padding: 10px 12px;
-        border-radius: 9px;
+    .msg {
+        font-size: 13px;
+    }
+    .form-link {
+        font-size: 15px;
     }
 }
