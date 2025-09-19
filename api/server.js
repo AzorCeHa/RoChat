@@ -1,11 +1,15 @@
 const http = require('http');
 const fs = require('fs');
+const path = require('path');
 const PORT = 3000;
 
-const USERS_FILE = './users.json';
-
-// Pastikan file users.json ada
+const USERS_FILE = path.join(__dirname, 'users.json');
 if (!fs.existsSync(USERS_FILE)) fs.writeFileSync(USERS_FILE, '[]');
+
+function send(res, code, obj) {
+  res.writeHead(code, {'Content-Type':'application/json'});
+  res.end(JSON.stringify(obj));
+}
 
 const server = http.createServer((req, res) => {
   if (req.method === 'POST' && req.url === '/api/register') {
@@ -13,24 +17,31 @@ const server = http.createServer((req, res) => {
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
       const { username, password } = JSON.parse(body);
-      if (!username || !password) {
-        res.writeHead(400, {'Content-Type': 'application/json'});
-        return res.end(JSON.stringify({message: 'Username dan password wajib diisi!'}));
-      }
+      if (!username || !password) return send(res, 400, {message:'Username dan password wajib diisi!'});
       let users = JSON.parse(fs.readFileSync(USERS_FILE));
       if (users.find(u => u.username === username)) {
-        res.writeHead(409, {'Content-Type': 'application/json'});
-        return res.end(JSON.stringify({message: 'Username sudah digunakan!'}));
+        return send(res, 409, {message:'Username sudah digunakan!'});
       }
       users.push({ username, password });
       fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
-      res.writeHead(200, {'Content-Type': 'application/json'});
-      return res.end(JSON.stringify({success: true, message: 'Registrasi sukses!'}));
+      return send(res, 200, {success:true, message:'Registrasi sukses!'});
+    });
+  } else if (req.method === 'POST' && req.url === '/api/login') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      const { username, password } = JSON.parse(body);
+      let users = JSON.parse(fs.readFileSync(USERS_FILE));
+      const user = users.find(u => u.username === username && u.password === password);
+      if (user) {
+        return send(res, 200, {success:true, message:'Login sukses!'});
+      } else {
+        return send(res, 401, {message:'Username atau password salah!'});
+      }
     });
   } else {
-    res.writeHead(404, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify({message: 'Not Found'}));
+    send(res, 404, {message:'Not Found'});
   }
 });
 
-server.listen(PORT, () => console.log('Server running on port', PORT));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
